@@ -28,14 +28,14 @@ yum install -y wget && wget -O install.sh https://download.bt.cn/install/install
 ### 脚本定时更新html图片路径
 
 这里我创建了一个脚本update_pic.sh
-
+```
 #!/bin/bash
 src_x="2023-01-23_1500"
 src_y="2023-01-23-1600"
 src_x=$(grep './picture/' index.html | awk -F/ '{print $3}' | awk -F. '{print $1}'|xargs)
 src_y=$(sed -nr '/'"$src_x"'/{n;p}' ./picture/filename.txt|awk -F. '{print $1}' |xargs )
 sed -i 's/'"$src_x"'/'"$src_y"'/g' index.html
-
+```
 
 ## 树莓派
 树莓派需要烧录官方镜像
@@ -72,31 +72,20 @@ chmod +x webcam.sh 使其具备可执行权限
 
 ### ftp上传并添加至任务
 我创建了ftp上传脚本 ftp_login.sh
-
-ftp -v -n [你的ftpIP地址]<<EOF
-                           
-user  [IP地址] [ftp登录密码]
-                           
-binary
-                           
-hash
-                           
-quote pasv #这两步是为了让ftp客户端进入被动模式，片面的解决了树莓派客户端无法访问ftp服务端的问题
-                           
-passive    #
-                           
-prompt
-                           
-cd /picture
-                           
-mput *.jpg
-                           
-put filename.txt
-                           
-close
-                           
+```
+ftp -v -n [你的ftpIP地址]<<EOF                           
+user  [IP地址] [ftp登录密码]                          
+binary                          
+hash                           
+quote pasv #这两步是为了让ftp客户端进入被动模式，片面的解决了树莓派客户端无法访问ftp服务端的问题                          
+passive    #                           
+prompt                         
+cd /picture                         
+mput *.jpg                        
+put filename.txt                         
+close                          
 bye
-
+```
 ### 防存储溢出的定时保护
 这里就是很简单的周期对pictures文件夹使用用rm -rf，这样虽有不妥但目前先这样用着后期再寻找更好更安全的方式
                         
