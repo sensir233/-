@@ -74,16 +74,27 @@ chmod +x webcam.sh 使其具备可执行权限
 我创建了ftp上传脚本 ftp_login.sh
 
 ftp -v -n [你的ftpIP地址]<<EOF
-user  [IP地址] [ftp登录密码] 
+                           
+user  [IP地址] [ftp登录密码]
+                           
 binary
+                           
 hash
+                           
 quote pasv #这两步是为了让ftp客户端进入被动模式，片面的解决了树莓派客户端无法访问ftp服务端的问题
+                           
 passive    #
+                           
 prompt
+                           
 cd /picture
+                           
 mput *.jpg
+                           
 put filename.txt
+                           
 close
+                           
 bye
 
 ### 防存储溢出的定时保护
