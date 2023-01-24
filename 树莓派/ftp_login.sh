@@ -10,8 +10,8 @@ do
 	echo $filename >> filename.txt
 done
 
-ftp -v -n 1.15.79.159<<EOF
-user 1_15_79_159 Zy12345678
+ftp -v -n [ftpIP地址]<<EOF
+user ftp登录名 登陆密码 
 binary
 hash
 quote pasv
